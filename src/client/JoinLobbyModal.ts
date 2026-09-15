@@ -557,7 +557,9 @@ export class JoinLobbyModal extends BaseModal {
             ? html`<div class="flex flex-wrap gap-1 mt-1">
                 ${settings.map((s) => {
                   // Some labels (e.g. game_settings.bots) already end with ": ".
-                  const label = s.label.replace(/[:\s]+$/, "");
+                  // Certain language sets, specifically CJK, may uses fullwidth
+                  // colon form (\uFF1A).
+                  const label = s.label.replace(/[:\uFF1A\s]+$/, "");
                   return html`<span
                     class="px-1.5 py-0.5 bg-white/10 text-white/70 text-[10px] rounded font-bold"
                     >${s.value === enabled
